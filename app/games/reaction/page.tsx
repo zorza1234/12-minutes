@@ -52,6 +52,7 @@ export default function ReactionTest() {
       const time = Math.round(performance.now() - startTimeRef.current);
 
       setReactionTime(time);
+
       setBestTime((currentBest) => {
         if (currentBest === null || time < currentBest) {
           return time;
@@ -135,7 +136,7 @@ export default function ReactionTest() {
         <button
           type="button"
           onClick={handleGameClick}
-          className={`relative flex min-h-[420px] w-full flex-col items-center justify-center overflow-hidden rounded-[2rem] border-2 border-[#171717] text-center transition-colors duration-150 ${
+          className={`reaction-game-area relative flex min-h-[420px] w-full flex-col items-center justify-center overflow-hidden rounded-[2rem] border-2 border-[#171717] px-6 text-center transition-colors duration-150 ${
             gameState === "ready"
               ? "bg-[#FF5A36]"
               : gameState === "tooEarly"
@@ -144,7 +145,7 @@ export default function ReactionTest() {
           }`}
         >
           <span
-            className={`mb-5 text-xs font-black tracking-[0.25em] ${
+            className={`reaction-label mb-5 text-xs font-black tracking-[0.25em] ${
               gameState === "ready" || gameState === "tooEarly"
                 ? "text-[#171717]/50"
                 : "text-white/40"
@@ -154,7 +155,7 @@ export default function ReactionTest() {
           </span>
 
           <span
-            className={`text-[clamp(3rem,8vw,7rem)] font-black leading-none tracking-[-0.07em] ${
+            className={`reaction-instruction text-[clamp(3rem,8vw,7rem)] font-black leading-none tracking-[-0.07em] ${
               gameState === "ready" || gameState === "tooEarly"
                 ? "text-[#171717]"
                 : "text-[#F4F0E8]"
@@ -170,7 +171,7 @@ export default function ReactionTest() {
           )}
 
           <span
-            className={`absolute bottom-6 text-[10px] font-black tracking-[0.15em] ${
+            className={`reaction-hint absolute bottom-6 text-[10px] font-black tracking-[0.15em] ${
               gameState === "ready" || gameState === "tooEarly"
                 ? "text-[#171717]/45"
                 : "text-white/30"
@@ -248,6 +249,7 @@ export default function ReactionTest() {
       {/* Footer */}
       <footer className="mx-auto flex max-w-5xl flex-col justify-between gap-4 px-6 py-10 text-sm font-bold text-[#171717]/45 sm:flex-row lg:px-10">
         <p>© 2026 12 MINUTES</p>
+
         <Link href="/games" className="hover:text-[#171717]">
           ← BACK TO GAMES
         </Link>
