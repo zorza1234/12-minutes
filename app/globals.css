@@ -1,26 +1,756 @@
 @import "tailwindcss";
 
+/* =========================================================
+   12 MINUTES — GLOBAL DESIGN SYSTEM
+   ========================================================= */
+
 :root {
-  --background: #ffffff;
+  --background: #f4f0e8;
   --foreground: #171717;
+
+  --orange: #ff5a36;
+  --blue: #2457ff;
+  --yellow: #f6c945;
+  --green: #2e9b65;
+
+  --white: #ffffff;
+  --muted: #6b6b6b;
+  --border: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--foreground);
+}
+
+/* =========================================================
+   GLOBAL MICRO-INTERACTIONS
+   ========================================================= */
+
+a,
+button {
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* =========================================================
+   GAMES HUB — MINI PONG
+   ========================================================= */
+
+.pong-ball {
+  animation: pong 2.2s ease-in-out infinite;
+  box-shadow: 0 0 0 5px rgba(255, 90, 54, 0.12);
+}
+
+@keyframes pong {
+  0% {
+    transform: translate(-125px, -50%);
+  }
+
+  25% {
+    transform: translate(105px, -80%);
+  }
+
+  50% {
+    transform: translate(125px, -20%);
+  }
+
+  75% {
+    transform: translate(-105px, 35%);
+  }
+
+  100% {
+    transform: translate(-125px, -50%);
+  }
+}
+
+/* =========================================================
+   GAMES HUB — REACTION TEST
+   ========================================================= */
+
+.reaction-button {
+  animation: reactionPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes reactionPulse {
+  0%,
+  45% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 90, 54, 0);
+  }
+
+  52% {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 12px rgba(255, 90, 54, 0.15);
+  }
+
+  60%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 90, 54, 0);
+  }
+}
+
+/* =========================================================
+   GAMES HUB — MEMORY
+   ========================================================= */
+
+.memory-animation {
+  width: 100px;
+  height: 90px;
+}
+
+.memory-card {
+  position: absolute;
+  width: 58px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid var(--border);
+  border-radius: 12px;
+
+  font-size: 28px;
+  font-weight: 900;
+
+  background: var(--white);
+}
+
+.memory-card-one {
+  left: 5px;
+  top: 5px;
+
+  animation: memoryOne 3s ease-in-out infinite;
+}
+
+.memory-card-two {
+  right: 0;
+  top: 15px;
+
+  background: var(--blue);
+  color: var(--white);
+
+  animation: memoryTwo 3s ease-in-out infinite;
+}
+
+@keyframes memoryOne {
+  0%,
+  100% {
+    transform: rotate(-12deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(3deg) translateY(-8px);
+  }
+}
+
+@keyframes memoryTwo {
+  0%,
+  100% {
+    transform: rotate(10deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(-4deg) translateY(8px);
+  }
+}
+
+/* =========================================================
+   GAMES HUB — NUMBER GUESS
+   ========================================================= */
+
+.number-animation {
+  animation: numberFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes numberFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(4deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-4deg);
+  }
+}
+
+/* =========================================================
+   GAMES HUB — ROCK PAPER SCISSORS
+   ========================================================= */
+
+.rps-animation {
+  animation: rpsChange 3.6s steps(1) infinite;
+}
+
+@keyframes rpsChange {
+  0%,
+  30% {
+    transform: rotate(-8deg);
+  }
+
+  31%,
+  63% {
+    transform: rotate(8deg);
+  }
+
+  64%,
+  100% {
+    transform: rotate(-8deg);
+  }
+}
+
+/* =========================================================
+   QUICK MATH
+   ========================================================= */
+
+.timer-bar {
+  transition: width 0.9s linear;
+}
+
+.question-area {
+  animation: mathQuestionIn 0.35s ease-out;
+}
+
+@keyframes mathQuestionIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.question-correct {
+  animation: correctPop 0.45s ease-out;
+}
+
+@keyframes correctPop {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.question-wrong {
+  animation: wrongShake 0.4s ease-in-out;
+}
+
+@keyframes wrongShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-8px);
+  }
+
+  40% {
+    transform: translateX(8px);
+  }
+
+  60% {
+    transform: translateX(-5px);
+  }
+
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.feedback-correct {
+  animation: feedbackPop 0.35s ease-out;
+}
+
+@keyframes feedbackPop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.feedback-wrong {
+  animation: feedbackShake 0.4s ease-out;
+}
+
+@keyframes feedbackShake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-3px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.streak-box {
+  transition: transform 0.25s ease;
+}
+
+/* =========================================================
+   TEST YOUR BRAIN HUB
+   ========================================================= */
+
+/* Brain hero */
+
+.brain-circle {
+  position: absolute;
+  border: 3px solid var(--border);
+  border-radius: 50%;
+}
+
+.brain-circle-one {
+  width: 110px;
+  height: 110px;
+
+  left: 45px;
+  top: 5px;
+
+  animation: brainFloatOne 3s ease-in-out infinite;
+}
+
+.brain-circle-two {
+  width: 75px;
+  height: 75px;
+
+  left: 125px;
+  top: 40px;
+
+  background: var(--blue);
+
+  animation: brainFloatTwo 2.5s ease-in-out infinite;
+}
+
+.brain-dot {
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.brain-dot-one {
+  left: 25px;
+  top: 35px;
+
+  animation: dotMove 2s ease-in-out infinite;
+}
+
+.brain-dot-two {
+  left: 205px;
+  top: 20px;
+
+  background: var(--yellow);
+
+  animation: dotMove 2.5s ease-in-out infinite reverse;
+}
+
+.brain-dot-three {
+  left: 220px;
+  top: 100px;
+
+  background: var(--green);
+
+  animation: dotMove 3s ease-in-out infinite;
+}
+
+@keyframes brainFloatOne {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(5deg);
+  }
+}
+
+@keyframes brainFloatTwo {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes dotMove {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(8px, -8px);
+  }
+}
+
+/* Quick Math preview */
+
+.math-visual {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 28px;
+  font-weight: 900;
+
+  transform: rotate(-5deg);
+}
+
+.math-equals {
+  animation: mathBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes mathBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Odd One Out preview */
+
+.odd-one-out {
+  transform: rotate(3deg);
+}
+
+.odd-one-out span {
+  font-size: 25px;
+  font-weight: 900;
+
+  animation: symbolFloat 2.5s ease-in-out infinite;
+}
+
+.odd-one-out span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.odd-one-out span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.odd-one-out span:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.odd-one-out span:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+.odd-one-out span:nth-child(6) {
+  animation-delay: 1s;
+}
+
+.odd-one-out .different {
+  color: var(--blue);
+}
+
+@keyframes symbolFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Pattern preview */
+
+.pattern-visual {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 30px;
+  font-weight: 900;
+
+  transform: rotate(4deg);
+}
+
+.pattern-visual span {
+  animation: patternPulse 2.5s ease-in-out infinite;
+}
+
+.pattern-visual span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.pattern-visual span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.pattern-visual span:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.pattern-question {
+  color: var(--white);
+
+  animation: questionPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes patternPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes questionPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2) rotate(-8deg);
+  }
+}
+
+/* Word scramble preview */
+
+.scramble-visual {
+  display: flex;
+  gap: 5px;
+
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -4px;
+
+  transform: rotate(-5deg);
+
+  animation: scrambleMove 2.5s ease-in-out infinite;
+}
+
+@keyframes scrambleMove {
+  0%,
+  100% {
+    transform: rotate(-5deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(5deg) translateY(-7px);
+  }
+}
+
+/* =========================================================
+   SHARED GAME / BRAIN MICRO-INTERACTIONS
+   ========================================================= */
+
+.game-card,
+.brain-card {
+  will-change: transform;
+}
+
+.game-card:hover,
+.brain-card:hover {
+  transform: translateY(-6px);
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* =========================================================
+   HOMEPAGE ANIMATIONS
+   ========================================================= */
+
+.home-float {
+  animation: homeFloat 4s ease-in-out infinite;
+}
+
+.home-float-fast {
+  animation: homeFloat 2.8s ease-in-out infinite reverse;
+}
+
+.home-float-slow {
+  animation: homeFloatSlow 5s ease-in-out infinite;
+}
+
+.home-pulse {
+  animation: homePulse 1.8s ease-in-out infinite;
+}
+
+.home-spin {
+  animation: homeSpin 18s linear infinite;
+}
+
+.home-badge {
+  animation: homeBadgeIn 0.6s ease-out;
+}
+
+.home-marquee {
+  width: max-content;
+  animation: homeMarquee 24s linear infinite;
+}
+
+@keyframes homeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes homeFloatSlow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(12deg);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(17deg);
+  }
+}
+
+@keyframes homePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.45);
+    opacity: 0.55;
+  }
+}
+
+@keyframes homeSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes homeBadgeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes homeMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-float,
+  .home-float-fast,
+  .home-float-slow,
+  .home-pulse,
+  .home-spin,
+  .home-badge,
+  .home-marquee {
+    animation: none;
+  }
 }
